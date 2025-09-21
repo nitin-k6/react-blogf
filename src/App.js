@@ -6,7 +6,7 @@ import Single from "./pages/single/Single";
 import Write from "./pages/write/Write";
 import  TopBar from "./topbar/TopBar";
 import Register from "./register/Register";
-import { BrowserRouter as Router,Switch,Link ,Routes,Route } from "react-router-dom";
+import { BrowserRouter as Router,Routes,Route } from "react-router-dom";
 import { useContext } from "react";
 import { Context } from "./context/Context";
  // when we do rafc we use {About} instead .In rfc we use About

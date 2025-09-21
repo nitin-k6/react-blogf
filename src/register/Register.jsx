@@ -16,7 +16,7 @@ export default function Login() {
       const res = await axios.post("https://reactblog3bb.onrender.com/register", {
         username,
         email,
-        password,
+        password, 
       });
       res.data && window.location.replace("/login")
     }catch(err){
