@@ -7,7 +7,7 @@ import { Context } from "../context/Context";
 
 
 export default function SinglePost() {
-  const PF = "https://reactblog3bb.onrender.com/images/";
+  const PF = "https://react-blogb-2.onrender.com/images/";
   const { user } = useContext(Context);
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
@@ -29,7 +29,7 @@ export default function SinglePost() {
   useEffect(() => {
     const getPost = async () => {
       try {
-        const res = await axios.get(`https://reactblog3bb.onrender.com/posts/${path}`);
+        const res = await axios.get(`https://react-blogb-2.onrender.com/posts/${path}`);
         console.log(res.data);
         setPost(res.data);
         setTitle(res.data.title);
@@ -45,7 +45,7 @@ export default function SinglePost() {
   
   const handleDelete = async () => {
     try {
-      await axios.delete(`https://reactblog3bb.onrender.com/posts/${post._id}`, {
+      await axios.delete(`https://react-blogb-2.onrender.com/posts/${post._id}`, {
         data: { username: user.username },
       });
       // window.location.replace("/");  we can also this instead of below
@@ -58,7 +58,7 @@ export default function SinglePost() {
   
   const handleUpdate = async () => {
     try {
-      await axios.put(`https://reactblog3bb.onrender.com/posts/${post._id}`, {
+      await axios.put(`https://react-blogb-2.onrender.com/posts/${post._id}`, {
         username: user.username,
          title,
           desc ,

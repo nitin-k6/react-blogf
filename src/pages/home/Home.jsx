@@ -31,7 +31,7 @@ useEffect(() => {
   console.log('Search:', search);
   const fetchPosts = async () => {
     try {
-      const res =  await axios.get("https://reactblog3bb.onrender.com/posts/" + search)
+      const res =  await axios.get("https://react-blogb-2.onrender.com/posts/" + search)
       setPosts(res.data);
     } catch (error) {
       console.error('Error fetching posts:', error);

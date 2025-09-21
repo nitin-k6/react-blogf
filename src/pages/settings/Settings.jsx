@@ -11,7 +11,7 @@ export default function Settings() {
     const [password, setPassword] = useState("");
     const [success, setSuccess] = useState(false)
     const {user,dispatch } = useContext(Context)
-    const PF = "https://reactblog3bb.onrender.com/images/"
+    const PF = "https://react-blogb-2.onrender.com/images/"
 
 
     const handleSubmit  = async(e) =>{
@@ -30,13 +30,13 @@ export default function Settings() {
           data.append("file", file);
           updatedUser.profilePic = filename;
           try{
-          await axios.post("https://reactblog3bb.onrender.com/upload" , data);
+          await axios.post("https://react-blogb-2.onrender.com/upload" , data);
           }catch(err){
       
           }
         }try{
         //  await axios.put("http://localhost:5000/users/" + user._id, updatedUser);
-      const res = await axios.put(`https://reactblog3bb.onrender.com/users/${user._id}`, updatedUser);
+      const res = await axios.put(`https://react-blogb-2.onrender.com/users/${user._id}`, updatedUser);
       setSuccess(true);
       dispatch({type: "UPDATE_SUCCESS", payload: res.data})
         }catch(err){

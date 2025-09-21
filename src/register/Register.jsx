@@ -13,7 +13,7 @@ export default function Login() {
     e.preventDefault();
     setError(false);
     try{
-      const res = await axios.post("https://reactblog3bb.onrender.com/register", {
+      const res = await axios.post("https://react-blogb-2.onrender.com/register", {
         username,
         email,
         password, 

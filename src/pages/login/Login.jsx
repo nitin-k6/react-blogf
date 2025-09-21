@@ -15,7 +15,7 @@ export default function Login() {
     e.preventDefault();
     dispatch({type:"LOGIN_START"})
     try{
-     const res = await axios.post("https://reactblog3bb.onrender.com/login", {
+     const res = await axios.post("https://react-blogb-2.onrender.com/login", {
       username: userRef.current.value,
       password: passwordRef.current.value,
      })

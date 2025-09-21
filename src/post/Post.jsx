@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 
 
 export default function Post({post}) {
-    const PF = "https://reactblog3bb.onrender.com/images/";
+    const PF = "https://react-blogb-2.onrender.com/images/";
   return (
     <div className="post">
          {post.photo &&(  // After using this method the images gone away because yet not uploaded(left no space for image block either)

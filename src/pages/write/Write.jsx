@@ -23,12 +23,12 @@ const handleSubmit  = async(e) =>{
     data.append("file", file);
     newPost.photo = filename;
     try{
-    await axios.post("https://reactblog3bb.onrender.com/upload" , data);
+    await axios.post("https://react-blogb-2.onrender.com/upload" , data);
     }catch(err){
 
     }
   }try{
-    const res = await axios.post("https://reactblog3bb.onrender.com/posts", newPost);
+    const res = await axios.post("https://react-blogb-2.onrender.com/posts", newPost);
     window.location.replace("/post/" + res.data._id);
   }catch(err){
 
