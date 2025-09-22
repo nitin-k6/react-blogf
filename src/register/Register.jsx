@@ -1,5 +1,5 @@
 import "./register.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
@@ -12,6 +12,7 @@ export default function Register() {
    const [isLoading, setIsLoading] = useState(false)
    const [showPassword, setShowPassword] = useState(false)
    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+   const navigate = useNavigate()
 
    const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,7 +35,16 @@ export default function Register() {
         email,
         password, 
       });
-      res.data && window.location.replace("/login")
+      if (res.data) {
+        // Use React Router's navigate instead of window.location.replace
+        navigate("/login", { 
+          replace: true,
+          state: { 
+            message: "Registration successful! Please log in with your credentials.",
+            registeredEmail: email 
+          }
+        });
+      }
     }catch(err){
        setError("Registration failed. Username or email might already exist.");
     } finally {

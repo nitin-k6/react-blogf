@@ -1,6 +1,6 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import "./login.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Context } from "../../context/Context";
 import { useRef } from "react";
 import axios from "axios";
@@ -10,6 +10,24 @@ export default function Login() {
   const passwordRef = useRef();
   const {dispatch, isFetching, error} = useContext(Context);
   const [showPassword, setShowPassword] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const location = useLocation();
+
+  // Check for success message from registration
+  useEffect(() => {
+    if (location.state?.message) {
+      setSuccessMessage(location.state.message);
+      // Pre-fill email if provided
+      if (location.state.registeredEmail && userRef.current) {
+        userRef.current.value = location.state.registeredEmail;
+      }
+      // Clear the message after 5 seconds
+      const timer = setTimeout(() => {
+        setSuccessMessage("");
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [location.state]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -68,6 +86,13 @@ export default function Login() {
               </button>
             </div>
           </div>
+
+          {successMessage && (
+            <div className="success-message">
+              <i className="fas fa-check-circle"></i>
+              <span>{successMessage}</span>
+            </div>
+          )}
 
           {error && (
             <div className="error-message">
