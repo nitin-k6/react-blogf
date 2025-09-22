@@ -20,7 +20,7 @@ export default function SinglePost() {
   const path = location.pathname.split("/")[2];
   // useEffect(()=>{ // We say whenever user path changes fire this useEffect
   //   const getPost = async () =>{
-  //     const res = await axios.get("/http://localhost:3000/posts/"+path)
+  //     const res = await axios.get("/https://react-blogf.netlify.app/posts/"+path)
   //     console.log(res.data)
   //   }
   //   getPost()

@@ -35,7 +35,7 @@ export default function Settings() {
       
           }
         }try{
-        //  await axios.put("http://localhost:5000/users/" + user._id, updatedUser);
+        //  await axios.put("https://react-blogb-2.onrender.com/users/" + user._id, updatedUser);
       const res = await axios.put(`https://react-blogb-2.onrender.com/users/${user._id}`, updatedUser);
       setSuccess(true);
       dispatch({type: "UPDATE_SUCCESS", payload: res.data})
@@ -51,7 +51,6 @@ export default function Settings() {
             <div className="settingsTitle">
                 <span className="settingsUpdateTitle">Update Your account</span>
                 <span className="settingsDeleteTitle">Delete account</span>
-            
             </div>
             <form className="settingsForm" onSubmit={handleSubmit}>
                 <label >Profile Picture</label>
@@ -59,7 +58,6 @@ export default function Settings() {
                     <img  className="settingsImg" src= {file ? URL.createObjectURL(file) : PF+ user.profilePic} alt="" />
                     <label htmlFor="fileInput">
                     <i className=" settingsProfilePIcon fa-solid fa-circle-user"></i>
-                
                     </label>
                 <input
                  type="file" 

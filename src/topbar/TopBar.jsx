@@ -1,75 +1,130 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import "./topbar.css"
 import { Link } from "react-router-dom"
 import { Context } from "../context/Context"
 
 export default function Topbar() {
   const {user, dispatch} = useContext(Context);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const PF = "https://react-blogb-2.onrender.com/images/"
 
 const handleLogout = () =>{
   dispatch({type:"LOGOUT"})
 }
 
+const toggleMobileMenu = () => {
+  setIsMobileMenuOpen(!isMobileMenuOpen);
+}
+
   return (
-    <div className='top'>
-    <div className="topLeft">
-      <h2 className="contact">Contact</h2>
-    <Link to ="https://www.linkedin.com/in/nitin-k666/"><i className="topIcon fa-brands fa-linkedin"></i></Link>
-       <Link  to ="https://www.facebook.com/profile.php?id=100057349644056"><i className="topIcon fa-brands fa-square-facebook" ></i></Link> 
-         <Link to ="https://www.instagram.com/nitin.x6/"><i class="topIcon fa-brands fa-instagram"></i></Link>
-          <Link to ="https://twitter.com/home">  <i className="topIcon fa-brands fa-twitter"></i></Link>     
+    <nav className='navbar'>
+      <div className="navbar-container">
+        {/* Logo/Brand */}
+        <div className="navbar-brand">
+          <Link to='/' className="brand-link">
+            <span className="brand-text">Blog</span>
+          </Link>
+        </div>
 
-         {/* <Link></Link><i class="topIcon fa-brands fa-pinterest"></i> */}
-       
-    </div>
-    <div className="topCenter">
-     <ul className="topList">
-     <li className="topListItem">
-     <Link to='/' style={{textDecoration:"none", color:"inherit"}}>Home</Link>
+        {/* Desktop Navigation */}
+        <div className="navbar-menu">
+          <div className="navbar-nav">
+            <Link to='/' className="nav-link">Home</Link>
+            {user && <Link to='/write' className="nav-link">Write</Link>}
+          </div>
+        </div>
 
-     </li>
-        {/* <li className="topListItem">
-     <Link to='/About' style={{textDecoration:"none", color:"inherit"}}>About</Link>
+        {/* Right side - User actions */}
+        <div className="navbar-actions">
+          {user ? (
+            <div className="user-menu">
+              <div className="user-info">
+                <span className="user-name">{user.username}</span>
+                <Link to="/settings" className="user-avatar">
+                  {user.profilePic ? (
+                    <img src={PF + user.profilePic} alt="Profile" className="avatar-img" />
+                  ) : (
+                    <div className="avatar-placeholder">
+                      {user.username?.charAt(0).toUpperCase()}
+                    </div>
+                  )}
+                </Link>
+              </div>
+              <button onClick={handleLogout} className="logout-btn">
+                <i className="fas fa-sign-out-alt"></i>
+                <span className="logout-text">Logout</span>
+              </button>
+            </div>
+          ) : (
+            <div className="auth-buttons">
+              <Link to="/login" className="auth-btn login-btn">Login</Link>
+              <Link to="/register" className="auth-btn register-btn">Sign Up</Link>
+            </div>
+          )}
+        </div>
 
-        </li> */}
-        {/* <li className="topListItem">
-     <Link to='/' style={{textDecoration:"none", color:"inherit"}}>Contact</Link>
-          
-          </li>   */}
-        <li className="topListItem">
-     <Link to='/write' style={{textDecoration:"none", color:"inherit"}}>Write</Link>
+        {/* Mobile menu button */}
+        <button 
+          className={`mobile-menu-btn ${isMobileMenuOpen ? 'active' : ''}`}
+          onClick={toggleMobileMenu}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
 
-        </li>
-        <li className="topListItem" onClick={handleLogout}>
-     <Link to='/login' style={{textDecoration:"none", color:"inherit"}}>
-      {user && "Logout"} 
-     </Link>
-        </li>
-     </ul>
-    </div>
-    <div className="topRight">
-      
-      {user ?(
-        <Link to="/settings">
-        <img className= "topImg"src={PF+user.profilePic} alt="" />
-        </Link>
-      ): (
-        <ul className="topList">
-          <li className="topListItem">
-          <Link to="/login" style={{textDecoration:"none",color:"inherit"}}>login</Link>
-         <Link to="/register" style={{textDecoration:"none",color:"inherit",marginLeft:"10px"}} >Register</Link>
-          </li>
-            </ul>
+      {/* Mobile Navigation */}
+      <div className={`mobile-menu ${isMobileMenuOpen ? 'active' : ''}`}>
+        <div className="mobile-nav">
+          <Link to='/' className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+            Home
+          </Link>
+          {user && (
+            <Link to='/write' className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+              Write
+            </Link>
+          )}
+          {user ? (
+            <>
+              <Link to='/settings' className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+                Settings
+              </Link>
+              <button onClick={() => {handleLogout(); setIsMobileMenuOpen(false);}} className="mobile-nav-link logout">
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to='/login' className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+                Login
+              </Link>
+              <Link to='/register' className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+                Sign Up
+              </Link>
+            </>
+          )}
+        </div>
+      </div>
 
-        )
-    }
-    
-    {/* <i className="topSearchIcon fa-solid fa-magnifying-glass"></i> */}
-    </div>
-    
-    </div>
-    
+      {/* Social Links - Hidden on mobile, shown as overlay on larger screens */}
+      <div className="social-overlay">
+        <div className="social-links">
+          <a href="https://www.linkedin.com/in/nitin-k666/" target="_blank" rel="noopener noreferrer" className="social-link linkedin">
+            <i className="fab fa-linkedin-in"></i>
+          </a>
+          <a href="https://www.facebook.com/profile.php?id=100057349644056" target="_blank" rel="noopener noreferrer" className="social-link facebook">
+            <i className="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://www.instagram.com/nitin.x6/" target="_blank" rel="noopener noreferrer" className="social-link instagram">
+            <i className="fab fa-instagram"></i>
+          </a>
+          <a href="https://twitter.com/home" target="_blank" rel="noopener noreferrer" className="social-link twitter">
+            <i className="fab fa-twitter"></i>
+          </a>
+        </div>
+      </div>
+    </nav>
   )
 }
 
